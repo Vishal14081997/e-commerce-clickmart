@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Login = () => {
   return (
     <>
-      <div className="flex bg-back_ground">
+      <div className="flex bg-secondary">
 
         {/* Left Section */}
         <div className="w-1/2  flex justify-center items-center">
@@ -13,7 +13,7 @@ const Login = () => {
         </div>
 
         {/* Right Section */}
-        <div className="w-1/2 flex items-center justify-center h-screen bg-back_ground">
+        <div className="w-1/2 flex items-center justify-center h-screen bg-secondary">
           <div className="w-[500px] bg-white rounded-2xl shadow-2xl p-10">
 
             <h1 className="text-4xl font-extrabold text-center text-primary mb-2">
