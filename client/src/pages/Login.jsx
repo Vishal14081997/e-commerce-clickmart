@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import WelcomePanel from '../components/WelcomPanel'
 import { Link } from 'react-router-dom'
 
 const Login = () => {
+
+  const [formData, setFormData] = useState({ email: "", password: "" })
+
+
   return (
     <>
       <div className="flex bg-secondary">
@@ -36,11 +40,11 @@ const Login = () => {
 
                 <input
                   type="email"
+                  onChange={(e)=>console.log(e.target.value)}
                   placeholder="Enter your email"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
-
               <div>
                 <label className="block mb-2 font-medium text-gray-700">
                   Password

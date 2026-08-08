@@ -8,6 +8,7 @@ import Categories from './pages/Categories'
 import Products from './pages/Products'
 import AgencyList from './pages/AgencyList'
 import Customer from './pages/Customer'
+import {Toaster} from "react-hot-toast"
 
 const App = () => {
 
@@ -43,6 +44,7 @@ const App = () => {
 
   return (
     <>
+      <Toaster position='top-right'/>
       <RouterProvider router={router} />
     </>
   )
