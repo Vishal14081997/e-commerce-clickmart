@@ -40,8 +40,6 @@ const Signup = () => {
             toast.error(error.response.data.message)
         }
     }
-
-
     return (
         <>
             <div className="flex justify-between bg-orange-50 h-screen">

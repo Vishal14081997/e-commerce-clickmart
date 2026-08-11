@@ -1,11 +1,33 @@
 import React, { useState } from 'react'
 import WelcomePanel from '../components/WelcomPanel'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import {toast} from "react-hot-toast"
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
   const [formData, setFormData] = useState({ email: "", password: "" })
 
+  const handleChange = (e) => {
+    // console.log(e.target.name, e.target.value)
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+  const navigate = useNavigate()
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:3000/auth/login", formData)
+      // console.log(res.data);
+      toast.success(res.data.message)
+      setFormData({email:"", password:""})
+      navigate("/dashboard")
+    } catch (error) {
+      console.log(error.response.data.message);
+       toast.success(error.response.data.message)
+    }
+  }
 
   return (
     <>
@@ -32,7 +54,7 @@ const Login = () => {
               {""} account.
             </p>
 
-            <form className="space-y-5">
+            <form onSubmit={handleLogin} className="space-y-5">
               <div>
                 <label className="block mb-2 font-medium text-gray-700">
                   Email Address
@@ -40,7 +62,9 @@ const Login = () => {
 
                 <input
                   type="email"
-                  onChange={(e)=>console.log(e.target.value)}
+                  name='email'
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter your email"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
@@ -52,6 +76,9 @@ const Login = () => {
 
                 <input
                   type="password"
+                  name='password'
+                  onChange={handleChange}
+                  value={formData.password}
                   placeholder="Enter your password"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
