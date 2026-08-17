@@ -54,26 +54,17 @@ export const getSingleCategory = async (req, res) => {
 }
 export const updateCategory = async (req, res) => {
     try {
-        const categoryId = req.params.id;
-        const { CName, CDesc, status } = req.body;
+        const categoryId = req.params.id
 
-        const category = await Category.findById(categoryId);
-        console.log(category);
+        const updateCategory = await Category.findByIdAndUpdate(categoryId, req.body, { new: true })
 
-        if (!category) {
-            return res.status(404).json({
-                message: "Category not found"
-            })
+        if(!updateCategory){
+            return res.status(404).json({message:"category not found"})
         }
-        category.CName = CName;
-        category.CDesc = CDesc;
-        category.status = status;
-        
-        category.save();
 
         res.status(200).json({
             message: "Category updated successfully",
-            data: category
+            data: updateCategory
         })
     } catch (error) {
         console.log(error.message);

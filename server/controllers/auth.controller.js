@@ -1,4 +1,5 @@
 import User from "../models/auth.model.js";
+import jwt from "jsonwebtoken"
 
 export const signup = async (req, res) => {
     try {
@@ -48,9 +49,20 @@ export const login = async (req, res) => {
                 message: "user not found"
             })
         }
+        console.log(user);
+        
+         // Generate a JWT
+        const payload = {
+           userId:user._id,
+           full_name:user.full_name,
+           email:user.email,
+           userType:user.userType 
+        }
+         const token = jwt.sign(payload , process.env.SECRET_KEY , {expiresIn:"7d"})
+
         res.status(200).json({
             message: "login successfully",
-            data: user
+            data:{ user ,token}
         })
     } catch (error) {
         console.log(error.message);
