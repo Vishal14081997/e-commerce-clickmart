@@ -71,15 +71,65 @@ export const updateCategory = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
-export const imageUpload = async (req, res) => {
+export const updateCategory = async (req, res) => {
     try {
-        console.log(req.file);
+        const categoryId = req.params.id;
+        const { CName, CDesc, status } = req.body;
+
+        const category = await Category.findById(categoryId);
+
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Category not found",
+            });
+        }
+
+        category.CName = CName || category.CName;
+        category.CDesc = CDesc || category.CDesc;
+        category.status = status || category.status;
+
+        if (req.imageUrl) {
+            category.image_url = req.imageUrl;
+        }
+
+        await category.save();
 
         res.status(200).json({
-            message: "image upload"
-        })
-    } catch (error) {
-        console.log(error.message);
+            success: true,
+            message: "Category updated successfully",
+            data: category,
+        });
 
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
     }
-}
+};
+
+export const deleteCategory = async (req, res) => {
+    try {
+        const category = await Category.findById(req.params.id);
+
+        if (!category) {
+            return res.status(404).json({
+                success: false,
+                message: "Category not found",
+            });
+        }
+
+        await Category.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+            success: true,
+            message: "Category deleted successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
