@@ -3,13 +3,13 @@ import Category from "../models/category.model.js";
 export const createCategory = async (req, res) => {
     try {
         const { CName, CDesc } = req.body;
-
+        console.log(req.file);
         const existCategory = await Category.findOne({ CName })
         if (existCategory) {
             return res.status(400).json({ message: "Category already exists" })
         }
         const category = await Category.create({
-            CName, CDesc
+            CName, CDesc, image_url: req.imageUrl
         })
         res.status(201).json({
             message: "Category created",
@@ -58,8 +58,8 @@ export const updateCategory = async (req, res) => {
 
         const updateCategory = await Category.findByIdAndUpdate(categoryId, req.body, { new: true })
 
-        if(!updateCategory){
-            return res.status(404).json({message:"category not found"})
+        if (!updateCategory) {
+            return res.status(404).json({ message: "category not found" })
         }
 
         res.status(200).json({
@@ -69,5 +69,17 @@ export const updateCategory = async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message })
+    }
+}
+export const imageUpload = async (req, res) => {
+    try {
+        console.log(req.file);
+
+        res.status(200).json({
+            message: "image upload"
+        })
+    } catch (error) {
+        console.log(error.message);
+
     }
 }
