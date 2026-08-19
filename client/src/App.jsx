@@ -9,6 +9,7 @@ import Products from './pages/Products'
 import AgencyList from './pages/AgencyList'
 import Customer from './pages/Customer'
 import {Toaster} from "react-hot-toast"
+import CreateCategory from './components/CreateCategory'
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
       children: [
         { path: "dashboard", element: <Dashboard/> },
         {path:"categories", element:<Categories/>},
+        {path:"create-category", element:<CreateCategory/>},
         {path:"products", element:<Products/>},
         {path:"agency", element:<AgencyList/>},
         {path:"customer", element:<Customer/>},

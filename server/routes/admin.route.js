@@ -9,7 +9,6 @@ const router = express.Router()
 router.post("/create-category", verifyToken, upload.single("category_image"), uploadToCloudinary, createCategory)
 router.get("/get-all-category", verifyToken, getAllCategory)
 router.get("/get-category/:id", verifyToken, getSingleCategory)
-router.patch("/update-category/:id", verifyToken, updateCategory)
 router.patch("/update-category/:id", verifyToken, upload.single("category_image"), uploadToCloudinary, updateCategory);
 router.delete("/delete-category/:id", verifyToken, deleteCategory);
 

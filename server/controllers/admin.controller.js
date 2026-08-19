@@ -54,33 +54,13 @@ export const getSingleCategory = async (req, res) => {
 }
 export const updateCategory = async (req, res) => {
     try {
-        const categoryId = req.params.id
-
-        const updateCategory = await Category.findByIdAndUpdate(categoryId, req.body, { new: true })
-
-        if (!updateCategory) {
-            return res.status(404).json({ message: "category not found" })
-        }
-
-        res.status(200).json({
-            message: "Category updated successfully",
-            data: updateCategory
-        })
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ message: error.message })
-    }
-}
-export const updateCategory = async (req, res) => {
-    try {
         const categoryId = req.params.id;
         const { CName, CDesc, status } = req.body;
 
         const category = await Category.findById(categoryId);
-
+        
         if (!category) {
             return res.status(404).json({
-                success: false,
                 message: "Category not found",
             });
         }
@@ -96,7 +76,6 @@ export const updateCategory = async (req, res) => {
         await category.save();
 
         res.status(200).json({
-            success: true,
             message: "Category updated successfully",
             data: category,
         });
@@ -108,27 +87,25 @@ export const updateCategory = async (req, res) => {
         });
     }
 };
-
 export const deleteCategory = async (req, res) => {
     try {
-        const category = await Category.findById(req.params.id);
+          const categoryId = req.params.id;
+
+        const category = await Category.findById(categoryId);
 
         if (!category) {
             return res.status(404).json({
-                success: false,
                 message: "Category not found",
             });
         }
 
-        await Category.findByIdAndDelete(req.params.id);
+        await Category.findByIdAndDelete(categoryId);
 
         res.status(200).json({
-            success: true,
             message: "Category deleted successfully",
         });
     } catch (error) {
         res.status(500).json({
-            success: false,
             message: error.message,
         });
     }
