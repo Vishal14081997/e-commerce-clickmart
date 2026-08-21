@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import {toast} from "react-hot-toast"
 
-const CreateCategory = () => {
+const AddCategory = () => {
   const [formData, setFormData] = useState({
     CName: "",
     CDesc: ""
@@ -37,10 +38,17 @@ const CreateCategory = () => {
           }
         }
       )
-      console.log(res.data);
-
+      // console.log(res.data);
+      toast.success("Create category successfull")
+      setFormData({
+        CName:"",
+        CDesc:""
+      })
+      setImageUrl(null)
+      setPreview("")
     } catch (error) {
       console.log(error.response);
+      toast.error(error.response.data.message)
     }
   }
 
@@ -101,4 +109,4 @@ const CreateCategory = () => {
   )
 }
 
-export default CreateCategory
+export default AddCategory
