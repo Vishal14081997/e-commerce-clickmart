@@ -8,8 +8,9 @@ import Categories from './pages/Categories'
 import Products from './pages/Products'
 import AgencyList from './pages/AgencyList'
 import Customer from './pages/Customer'
-import {Toaster} from "react-hot-toast"
+import { Toaster } from "react-hot-toast"
 import AddCategory from './components/AddCategory'
+import EditCategory from './components/EditCategory'
 
 const App = () => {
 
@@ -30,12 +31,13 @@ const App = () => {
       path: "/",
       element: <DashboardLayout />,
       children: [
-        { path: "dashboard", element: <Dashboard/> },
-        {path:"categories", element:<Categories/>},
-        {path:"create-category", element:<AddCategory/>},
-        {path:"products", element:<Products/>},
-        {path:"agency", element:<AgencyList/>},
-        {path:"customer", element:<Customer/>},
+        { path: "dashboard", element: <Dashboard /> },
+        { path: "categories", element: <Categories /> },
+        { path: "create-category", element: <AddCategory /> },
+        { path: "edit-category/:id", element: <EditCategory /> },
+        { path: "products", element: <Products /> },
+        { path: "agency", element: <AgencyList /> },
+        { path: "customer", element: <Customer /> },
       ]
     },
     {
@@ -46,7 +48,7 @@ const App = () => {
 
   return (
     <>
-      <Toaster position='top-right'/>
+      <Toaster position='top-right' />
       <RouterProvider router={router} />
     </>
   )

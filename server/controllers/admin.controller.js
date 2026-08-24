@@ -57,7 +57,7 @@ export const updateCategory = async (req, res) => {
         const { CName, CDesc, status } = req.body;
 
         const category = await Category.findById(categoryId);
-        
+
         if (!category) {
             return res.status(404).json({
                 message: "Category not found",
@@ -88,18 +88,14 @@ export const updateCategory = async (req, res) => {
 };
 export const deleteCategory = async (req, res) => {
     try {
-          const categoryId = req.params.id;
-
+        const categoryId = req.params.id;
         const category = await Category.findById(categoryId);
-
         if (!category) {
             return res.status(404).json({
                 message: "Category not found",
             });
         }
-
         await Category.findByIdAndDelete(categoryId);
-
         res.status(200).json({
             message: "Category deleted successfully",
         });
