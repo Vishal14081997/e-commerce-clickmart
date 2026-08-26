@@ -49,7 +49,7 @@ export const login = async (req, res) => {
                 message: "user not found"
             })
         }
-        console.log(user);
+        // console.log(user);
         
          // Generate a JWT
         const payload = {

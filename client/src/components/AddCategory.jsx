@@ -34,7 +34,8 @@ const AddCategory = () => {
       const res = await axios.post("http://localhost:3000/admin/create-category", data,
         {
           headers:{
-            Authorization:`Bearer ${token}`
+            Authorization:`Bearer ${token}`,
+            "Content-Type":"multipart/form-data"
           }
         }
       )

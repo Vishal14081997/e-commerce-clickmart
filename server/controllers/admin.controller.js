@@ -1,9 +1,10 @@
 import Category from "../models/category.model.js";
+import Product from "../models/product.model.js";
 
 export const AddCategory = async (req, res) => {
     try {
         const { CName, CDesc } = req.body;
-        console.log(req.file);
+        // console.log(req.file);
         const existCategory = await Category.findOne({ CName })
         if (existCategory) {
             return res.status(400).json({ message: "Category already exists" })
@@ -16,7 +17,7 @@ export const AddCategory = async (req, res) => {
             data: category
         })
     } catch (error) {
-        console.log(error.message);
+        console.log("AddCategory", error.message);
         res.status(500).json({ message: error.message })
     }
 }
@@ -105,3 +106,37 @@ export const deleteCategory = async (req, res) => {
         });
     }
 };
+
+
+export const AddProduct = async (req, res) => {
+    try {
+        const { CId, PName, PDesc, price, Qty, MRP } = req.body;
+        const category = await Category.findById(CId).select("_id, CName")
+        console.log(category);
+        if (!category) {
+            return res.status(404).json({
+                message: "Category not found"
+            })
+        }
+        const existProduct = await Product.findOne({ PName });
+
+        if (existProduct) {
+            return res.status(400).json({
+                message: "Product already exists"
+            })
+        }
+        const product = await Product.create({
+            CId, PName, PDesc, price, Qty, MRP, image_url: req.imageUrl
+        })
+
+        res.status(201).json({
+            messaeg: "Product created successfully",
+            data: product
+        })
+
+    } catch (error) {
+        console.log("addProduct error:", error.message);
+        res.status(500).json({ message: error.message })
+
+    }
+}
