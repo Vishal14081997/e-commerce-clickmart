@@ -11,6 +11,7 @@ import Customer from './pages/Customer'
 import { Toaster } from "react-hot-toast"
 import AddCategory from './components/AddCategory'
 import EditCategory from './components/EditCategory'
+import AddProduct from './components/AddProduct'
 
 const App = () => {
 
@@ -29,13 +30,14 @@ const App = () => {
     },
     {
       path: "/",
-      element: <DashboardLayout /> ,
+      element: <DashboardLayout />,
       children: [
         { path: "dashboard", element: <Dashboard /> },
         { path: "categories", element: <Categories /> },
         { path: "create-category", element: <AddCategory /> },
         { path: "edit-category/:id", element: <EditCategory /> },
         { path: "products", element: <Products /> },
+        { path: "create-product", element: <AddProduct /> },
         { path: "agency", element: <AgencyList /> },
         { path: "customer", element: <Customer /> },
       ]
