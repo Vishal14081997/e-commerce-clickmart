@@ -107,12 +107,11 @@ export const deleteCategory = async (req, res) => {
     }
 };
 
-
 export const AddProduct = async (req, res) => {
     try {
         const { CId, PName, PDesc, price, Qty, MRP } = req.body;
         const category = await Category.findById(CId).select("_id, CName")
-        console.log(category);
+        // console.log(category);
         if (!category) {
             return res.status(404).json({
                 message: "Category not found"

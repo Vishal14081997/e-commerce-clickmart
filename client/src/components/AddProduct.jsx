@@ -33,6 +33,18 @@ const AddProduct = () => {
     }
     console.log(formData);
 
+
+    const [imageUrl, setImageUrl] = useState(null)
+    const [preview, setPreview] = useState("")
+
+    const handleImageChange = (e) => {
+        // console.log(e.target.files[0]);
+        const file = e.target.files[0]
+        setImageUrl(file)
+        setPreview(URL.createObjectURL(file))
+    }
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -43,6 +55,7 @@ const AddProduct = () => {
             data.append("MRP", formData.MRP)
             data.append("price", formData.price)
             data.append("Qty", formData.Qty)
+            data.append("product_image", imageUrl)
             const res = await axios.post("http://localhost:3000/admin/create-product", data, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -61,7 +74,7 @@ const AddProduct = () => {
             <div className="w-1/2 bg-orange-50 flex flex-col items-center justify-center p-8">
                 <div className="w-full h-80 border-2 border-dashed border-orange-300 rounded-xl flex items-center justify-center overflow-hidden">
                     <img
-                        src=""
+                        src={preview}
                         alt="Category preview"
                         className="w-full h-full object-cover"
                     />
@@ -70,6 +83,7 @@ const AddProduct = () => {
                 <label className="mt-4 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl">
                     Select Images
                     <input
+                        onChange={handleImageChange}
                         type="file"
                         accept="image/*"
                         className="hidden"
@@ -141,7 +155,7 @@ const AddProduct = () => {
                         {
                             categories.map((item) => {
                                 return (
-                                    <option  key={item._id} value={item._id}>{item.CName}</option>
+                                    <option key={item._id} value={item._id}>{item.CName}</option>
                                 )
                             })
                         }
