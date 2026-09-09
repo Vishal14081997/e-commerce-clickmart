@@ -7,9 +7,7 @@ const AddProduct = () => {
     const [formData, setFormData] = useState({
         CId: "", PName: "", PDesc: "", MRP: "", price: "", Qty: ""
     })
-
     const token = localStorage.getItem("token")
-
     const fetchCategory = async () => {
         try {
             const res = await axios.get("http://localhost:3000/admin/get-all-category", {
@@ -19,7 +17,6 @@ const AddProduct = () => {
             })
             console.log(res.data);
             setCategories(res.data.data)
-
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +30,6 @@ const AddProduct = () => {
     }
     console.log(formData);
 
-
     const [imageUrl, setImageUrl] = useState(null)
     const [preview, setPreview] = useState("")
 
@@ -43,8 +39,6 @@ const AddProduct = () => {
         setImageUrl(file)
         setPreview(URL.createObjectURL(file))
     }
-
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {

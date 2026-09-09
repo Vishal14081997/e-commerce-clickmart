@@ -9,7 +9,6 @@ const Products = () => {
   return (
     <>
       <div>
-
         <div className='flex justify-between mt-6'>
           <div className=''>
             <h1 className='font-bold text-2xl'>Products</h1>
@@ -27,7 +26,7 @@ const Products = () => {
           </div>
         </div>
 
-        <div>
+        <div className='overflow-y-auto '>
           <ProductCard />
         </div>
 
