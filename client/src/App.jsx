@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast"
 import AddCategory from './components/AddCategory'
 import EditCategory from './components/EditCategory'
 import AddProduct from './components/AddProduct'
+import Profile from './pages/Profile'
 
 const App = () => {
 
@@ -40,6 +41,7 @@ const App = () => {
         { path: "create-product", element: <AddProduct /> },
         { path: "agency", element: <AgencyList /> },
         { path: "customer", element: <Customer /> },
+        { path: "profile", element: <Profile /> },
       ]
     },
     {

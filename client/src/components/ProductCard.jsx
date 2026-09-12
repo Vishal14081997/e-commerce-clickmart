@@ -15,7 +15,6 @@ const ProductCard = () => {
             })
             console.log(res.data.data);
             setData(res.data.data)
-
         } catch (error) {
             console.log(error.response);
         }
@@ -32,30 +31,27 @@ const ProductCard = () => {
                     data.map((item) => {
                         return (
                             <div
+                                key={item._id}
                                 className="w-full bg-white rounded-2xl overflow-hidden border shadow-sm hover:shadow-md transition"
                             >
                                 {/* Product Image */}
                                 <div className="w-full h-52 bg-gray-100">
                                     <img
-                                        src={item.image_url}
+                                        src={item.image_url || null}
                                         className="w-full h-full object-cover"
                                     />
                                 </div>
 
-                                {/* Product Details */}
                                 <div className="p-4">
 
-                                    {/* Product Name */}
                                     <h2 className="text-xl font-semibold text-gray-800 truncate">
                                         {item.PName}
                                     </h2>
 
-                                    {/* Description */}
                                     <p className="text-gray-500 text-sm mt-2 line-clamp-2">
                                         {item.PDesc}
                                     </p>
 
-                                    {/* Price */}
                                     <div className="flex items-center gap-3 mt-3">
                                         <h3 className="text-2xl font-bold text-primary">
                                             ₹{item.price}
@@ -66,7 +62,6 @@ const ProductCard = () => {
                                         </span>
                                     </div>
 
-                                    {/* Quantity & Rating */}
                                     <div className="flex justify-between items-center mt-3 text-sm">
                                         <span className="text-gray-600">
                                             Qty: <b>{item.Qty}</b>
@@ -77,22 +72,16 @@ const ProductCard = () => {
                                         </span>
                                     </div>
 
-                                    {/* Status */}
                                     <div className="mt-3">
-                                        {/* <span
-                                className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                    item.status === "Active"
-                                        ? "bg-green-100 text-green-600"
-                                        : "bg-red-100 text-red-600"
-                                }`}
-                            >
-                                {item.status}
-                            </span> */}
                                         <span
-                                            className={`px-3 py-1 rounded-full text-xs font-medium `}
+                                            className={`px-3 py-1 rounded-full text-xs font-medium ${item.status === "Active"
+                                                    ? "bg-green-100 text-green-600"
+                                                    : "bg-red-100 text-red-600"
+                                                }`}
                                         >
                                             {item.status}
                                         </span>
+
                                     </div>
 
                                     {/* Buttons */}

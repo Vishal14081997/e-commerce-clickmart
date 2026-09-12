@@ -7,17 +7,13 @@ import Topbar from '../components/Topbar'
 const DashboardLayout = () => {
   return (
     <>
-      <div className='flex'>
-        <div className=' bg-secondary w-1/4 h-screen'>
+      <div className='flex h-screen bg-secondary'>
           <Sidebar />
-        </div>
-        <div className='w-3/4 p-6'>
-
-          <div>
-            <Topbar />
+        <div className='flex-1 flex flex-col p-6'>
+          <Topbar />
+          <div className=' flex-1 overflow-hidden'>
+            <Outlet />
           </div>
-
-          <Outlet />
 
         </div>
       </div>

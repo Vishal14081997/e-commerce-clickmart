@@ -7,7 +7,6 @@ const Categories = () => {
   return (
     <>
       <div>
-
         <div className='flex justify-between mt-6'>
           <div className=''>
             <h1 className='font-bold text-2xl'>Categories</h1>
@@ -24,7 +23,7 @@ const Categories = () => {
           </div>
         </div>
 
-        <div>
+        <div className='h-screen overflow-y-auto'>
           <CategoryCard />
         </div>
 

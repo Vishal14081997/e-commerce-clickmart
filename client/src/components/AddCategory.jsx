@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import {toast} from "react-hot-toast"
+import { useNavigate } from 'react-router-dom'
 
 const AddCategory = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ const AddCategory = () => {
   })
   const [imageUrl, setImageUrl] = useState(null)
   const [preview, setPreview] = useState("")
-
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
@@ -40,7 +41,8 @@ const AddCategory = () => {
         }
       )
       // console.log(res.data);
-      toast.success("Create category successfull")
+      toast.success("Create category successfully")
+      navigate("/categories")
       setFormData({
         CName:"",
         CDesc:""

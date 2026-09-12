@@ -1,9 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { toast } from "react-hot-toast"
+import { useNavigate } from 'react-router-dom'
 
 const AddProduct = () => {
     const [categories, setCategories] = useState([])
-
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         CId: "", PName: "", PDesc: "", MRP: "", price: "", Qty: ""
     })
@@ -15,7 +17,7 @@ const AddProduct = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(res.data);
+            // console.log(res.data);
             setCategories(res.data.data)
         } catch (error) {
             console.log(error);
@@ -28,7 +30,6 @@ const AddProduct = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
-    console.log(formData);
 
     const [imageUrl, setImageUrl] = useState(null)
     const [preview, setPreview] = useState("")
@@ -56,9 +57,16 @@ const AddProduct = () => {
                 }
             })
             console.log(res.data);
-
+            toast.success(res.data.message)
+            navigate("/products")
+            setFormData({
+                CId: "", PName: "", PDesc: "", MRP: "", price: "", Qty: ""
+            })
+            setImageUrl(null)
+            setPreview("")
         } catch (error) {
             console.log(error.response?.data);
+            toast.error(error.response?.data?.message)
         }
     }
 
@@ -68,7 +76,7 @@ const AddProduct = () => {
             <div className="w-1/2 bg-orange-50 flex flex-col items-center justify-center p-8">
                 <div className="w-full h-80 border-2 border-dashed border-orange-300 rounded-xl flex items-center justify-center overflow-hidden">
                     <img
-                        src={preview}
+                        src={preview || null}
                         alt="Category preview"
                         className="w-full h-full object-cover"
                     />

@@ -17,7 +17,7 @@ const CategoryCard = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(res.data.data);
+            // console.log(res.data.data);
             setFormData(res.data.data)
         } catch (error) {
             console.log(error.response);
@@ -46,10 +46,10 @@ const CategoryCard = () => {
         <>
             <div className='flex flex-wrap gap-3'>
                 {
-                    formData.map((item) => {
+                    formData.map((item) => {                        
                         return (
-                            <div>
-                                <div className="w-72 h-80 bg-white rounded-2xl overflow-hidden border mt-6">
+                            <div key={item._id}>
+                                <div className="w-70 h-80 bg-white rounded-2xl overflow-hidden border mt-6">
                                     <img
                                         src={item.image_url}
                                         className="w-full h-50 object-cover"

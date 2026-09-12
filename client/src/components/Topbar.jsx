@@ -1,5 +1,6 @@
 import React from 'react'
 import { Search, UserCircle } from "lucide-react"
+import { Link } from "react-router-dom"
 
 
 const Topbar = () => {
@@ -13,7 +14,9 @@ const Topbar = () => {
                     </div>
                 </div>
                 <div>
-                    <UserCircle className='text-gray-500 ' size={30} />
+                    <Link to={"/profile"}>
+                        <UserCircle className='text-gray-500 ' size={30} />
+                    </Link>
                 </div>
             </div>
         </div>

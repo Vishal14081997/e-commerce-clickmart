@@ -26,7 +26,7 @@ const Products = () => {
           </div>
         </div>
 
-        <div className='overflow-y-auto '>
+        <div className='h-screen overflow-y-auto  '>
           <ProductCard />
         </div>
 

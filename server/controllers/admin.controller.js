@@ -1,3 +1,4 @@
+import User from "../models/auth.model.js";
 import Category from "../models/category.model.js";
 import Product from "../models/product.model.js";
 
@@ -129,7 +130,7 @@ export const AddProduct = async (req, res) => {
         })
 
         res.status(201).json({
-            messaeg: "Product created successfully",
+            message: "Product created successfully",
             data: product
         })
 
@@ -156,3 +157,23 @@ export const getAllProducts = async (req, res) => {
         });
     }
 };
+
+export const getDashboard = async (req, res) => {
+    try {
+        const totalProduct = await Product.countDocuments();
+        const totalCategory = await Category.countDocuments();
+        const totalCustomer = await User.countDocuments({ userType: "Customer" })
+        const totalAgency = await User.countDocuments({ userType: "Agency" })
+
+        res.status(200).json({
+            data: {
+                totalProduct, totalCategory, totalCustomer, totalAgency
+            },
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+
+}
