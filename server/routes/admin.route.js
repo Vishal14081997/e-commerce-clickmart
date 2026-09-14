@@ -1,11 +1,12 @@
 import express from "express"
-import { AddCategory, AddProduct, deleteCategory, getAllCategory, getSingleCategory, updateCategory, getAllProducts, getDashboard } from "../controllers/admin.controller.js";
+import { AddCategory, AddProduct, deleteCategory, getAllCategory, getSingleCategory, updateCategory, getAllProducts, getDashboard, getProfile } from "../controllers/admin.controller.js";
 import verifyToken from "../middleware/verify.middleware.js";
 import upload from "../middleware/upload.middleware.js";
 import uploadToCloudinary from "../middleware/cloudinary.middleware.js";
 
 const router = express.Router()
 
+router.get("/get-profile" , verifyToken , getProfile)
 router.post("/create-category", verifyToken, upload.single("category_image"), uploadToCloudinary, AddCategory)
 router.get("/get-all-category", verifyToken, getAllCategory)
 router.get("/get-category/:id", verifyToken, getSingleCategory)

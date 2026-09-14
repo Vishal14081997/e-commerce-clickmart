@@ -3,8 +3,28 @@ import axios from "axios";
 import { Mail, Phone, User, ShieldCheck, ShieldAlert } from "lucide-react";
 import toast from "react-hot-toast";
 
-const Profile = () => {
 
+const Profile = () => {
+    const token = localStorage.getItem("token")
+    const [data, setData] = useState("")
+
+    const fetchProfile = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/admin/get-profile", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log(response.data);
+            setData(response.data.data)
+        } catch (error) {
+            console.log(error.response.data.message);
+
+        }
+    }
+    useEffect(() => {
+        fetchProfile()
+    }, [])
     return (
         <div className="min-h-[80vh] w-full bg-white p-6">
             <div className="mx-auto max-w-xl">
@@ -16,18 +36,18 @@ const Profile = () => {
                         <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-gray-100">
 
                             <img
-                                src=""
+                                src={data.image_url || null}
                                 alt="Profile"
-                                className="h-full w-full object-cover"
+                                className="h-full w-full object-cover "
                             />
                         </div>
 
                         <div className="min-w-0">
                             <p className="truncate text-lg font-semibold text-gray-900">
-                                User
+                                {data.full_name}
                             </p>
                             <span className="mt-1 inline-block rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">
-                                Admin
+                                {data.userType}
                             </span>
                         </div>
                     </div>
@@ -39,7 +59,7 @@ const Profile = () => {
                             <div className="min-w-0">
                                 <p className="text-xs text-gray-500">Email</p>
                                 <p className="truncate text-sm font-medium text-gray-900">
-                                    vishal@gmail.com
+                                    {data.email}
                                 </p>
                             </div>
                         </div>
@@ -49,23 +69,19 @@ const Profile = () => {
                             <div className="min-w-0">
                                 <p className="text-xs text-gray-500">Phone Number</p>
                                 <p className="text-sm font-medium text-gray-900">
-                                    789980980809
+                                    {data.phone_no}
                                 </p>
                             </div>
                         </div>
 
                         <div className="flex items-center gap-3 py-4">
-                            {/* {isActive ? (
-                                <ShieldCheck size={17} className="text-green-500" />
-                            ) : (
-                                <ShieldAlert size={17} className="text-red-400" />
-                            )} */}
                             <div className="min-w-0">
                                 <p className="text-xs text-gray-500">Account Status</p>
+
                                 <p
                                     className={`text-sm font-medium `}
                                 >
-                                    Active
+                                    {data.status}
                                 </p>
                             </div>
                         </div>
