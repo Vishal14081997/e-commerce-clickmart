@@ -13,12 +13,15 @@ dbConnect()
 
 app.use(cors())
 app.use(express.json())
-
-app.use("/auth",authRouter)
+app.get("/", (req, res) => {
+    console.log("server start ok ");
+    res.status(200).json("server start ok")
+})
+app.use("/auth", authRouter)
 app.use("/admin", adminRouter)
 
 
-app.listen(process.env.PORT , ()=>{
+app.listen(process.env.PORT, () => {
     console.log(`server start ${process.env.PORT}`);
 })
 

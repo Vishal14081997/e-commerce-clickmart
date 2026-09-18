@@ -1,40 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios"
 
 const Customer = () => {
-  const customers = [
-    {
-      id: 1,
-      full_name: "Vishal Singh",
-      email: "vishal@gmail.com",
-      phone_no: "9876543210",
-      status: "Active",
-      createdAt: "12/09/2026",
-    },
-    {
-      id: 2,
-      full_name: "Raj Kumar",
-      email: "raj@gmail.com",
-      phone_no: "9876543211",
-      status: "Active",
-      createdAt: "10/09/2026",
-    },
-    {
-      id: 3,
-      full_name: "Mohan Sharma",
-      email: "mohan@gmail.com",
-      phone_no: "9876543212",
-      status: "Inactive",
-      createdAt: "08/09/2026",
-    },
-    {
-      id: 4,
-      full_name: "Rekha Devi",
-      email: "rekha@gmail.com",
-      phone_no: "9876543213",
-      status: "Active",
-      createdAt: "05/09/2026",
-    },
-  ];
+  const [customers, setCustomers] = useState([])
+  const [search, setSearch] = useState("")
+
+  const token = localStorage.getItem("token")
+
+  const fetchAllCustomers = async (searchText) => {
+    try {
+      const res = await axios.get("http://localhost:3000/admin/get-all-customers", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        params: {
+          search: searchText
+        }
+      })
+      console.log(res.data.data);
+      setCustomers(res.data.data)
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchAllCustomers()
+  }, [])
+
+  useEffect(() => {
+    fetchAllCustomers(search)
+  }, [search])
+
 
   return (
     <div className="min-h-screen bg-orange-50/40 p-6">
@@ -76,6 +73,7 @@ const Customer = () => {
 
           <input
             type="text"
+            onChange={(e)=>setSearch(e.target.value)}
             placeholder="Search by name, email or phone..."
             className="w-full border border-gray-200 rounded-xl
             pl-10 pr-4 py-2.5 outline-none
@@ -145,14 +143,6 @@ const Customer = () => {
 
                     <div className="flex items-center gap-3">
 
-                      <div
-                        className="w-10 h-10 rounded-full
-                        bg-orange-100 text-orange-600
-                        flex items-center justify-center
-                        font-bold"
-                      >
-                        {customer.full_name.charAt(0)}
-                      </div>
 
                       <div>
 
@@ -160,9 +150,7 @@ const Customer = () => {
                           {customer.full_name}
                         </p>
 
-                        <p className="text-xs text-gray-400">
-                          Customer
-                        </p>
+
 
                       </div>
 
@@ -185,11 +173,10 @@ const Customer = () => {
 
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-semibold
-                      ${
-                        customer.status === "Active"
+                      ${customer.status === "Active"
                           ? "bg-green-100 text-green-700"
                           : "bg-red-100 text-red-700"
-                      }`}
+                        }`}
                     >
                       {customer.status}
                     </span>

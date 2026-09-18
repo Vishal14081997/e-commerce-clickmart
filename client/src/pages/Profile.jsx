@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Mail, Phone, User, ShieldCheck, ShieldAlert } from "lucide-react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom"
 
 
 const Profile = () => {
     const token = localStorage.getItem("token")
     const [data, setData] = useState("")
-
+    const navigate = useNavigate()
     const fetchProfile = async () => {
         try {
             const response = await axios.get("http://localhost:3000/admin/get-profile", {
@@ -25,6 +26,10 @@ const Profile = () => {
     useEffect(() => {
         fetchProfile()
     }, [])
+    const handleLogout = () => {
+        localStorage.removeItem("token")
+        navigate("/login")
+    }
     return (
         <div className="min-h-[80vh] w-full bg-white p-6">
             <div className="mx-auto max-w-xl">
@@ -84,6 +89,12 @@ const Profile = () => {
                                     {data.status}
                                 </p>
                             </div>
+                        </div>
+
+                        <div className="text-center">
+                            <button
+                                onClick={handleLogout}
+                                className="bg-red-600 text-white rounded-2xl px-5 py-1 mt-2 mb-2 w-full font-semibold">Logout</button>
                         </div>
                     </div>
 

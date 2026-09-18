@@ -2,14 +2,13 @@ import User from "../models/auth.model.js";
 import Category from "../models/category.model.js";
 import Product from "../models/product.model.js";
 
-
 export const getProfile = async (req, res) => {
     try {
         const userId = req.user._id;
         const user = await User.findById(userId)
-        if(!user){
+        if (!user) {
             return res.status(404).json({
-                message:"user not found"
+                message: "user not found"
             })
         }
         res.status(200).json({
@@ -21,7 +20,6 @@ export const getProfile = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
-
 export const AddCategory = async (req, res) => {
     try {
         const { CName, CDesc } = req.body;
@@ -127,7 +125,6 @@ export const deleteCategory = async (req, res) => {
         });
     }
 };
-
 export const AddProduct = async (req, res) => {
     try {
         const { CId, PName, PDesc, price, Qty, MRP } = req.body;
@@ -160,7 +157,6 @@ export const AddProduct = async (req, res) => {
 
     }
 }
-
 export const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find()
@@ -177,7 +173,6 @@ export const getAllProducts = async (req, res) => {
         });
     }
 };
-
 export const getDashboard = async (req, res) => {
     try {
         const totalProduct = await Product.countDocuments();
@@ -190,6 +185,31 @@ export const getDashboard = async (req, res) => {
                 totalProduct, totalCategory, totalCustomer, totalAgency
             },
         });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+
+}
+export const getAllCustomers = async (req, res) => {
+    try {
+        const { search } = req.query;
+        const filter = {
+            userType: "Customer"
+        }
+        if (search) {
+            filter.$or = [
+                { full_name: { $regex: search, $options: "i" } },
+                { email: { $regex: search, $options: "i" } },
+                { phone_no: { $regex: search, $options: "i" } },
+            ]
+        }
+        const customers = await User.find(filter).select("-password").sort({ createdAt: -1 })
+        res.status(200).json({
+            data: customers,
+        });
+
     } catch (error) {
         res.status(500).json({
             message: error.message,
