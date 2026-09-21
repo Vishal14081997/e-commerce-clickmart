@@ -3,6 +3,7 @@ import axios from "axios";
 import { Mail, Phone, User, ShieldCheck, ShieldAlert } from "lucide-react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom"
+import { apiUrl } from "../api/config";
 
 
 const Profile = () => {
@@ -11,7 +12,7 @@ const Profile = () => {
     const navigate = useNavigate()
     const fetchProfile = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/admin/get-profile", {
+            const response = await axios.get(`${apiUrl}/admin/get-profile`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

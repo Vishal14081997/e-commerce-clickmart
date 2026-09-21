@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
+import { apiUrl } from "../api/config";
 
 const Customer = () => {
   const [customers, setCustomers] = useState([])
@@ -9,7 +10,7 @@ const Customer = () => {
 
   const fetchAllCustomers = async (searchText) => {
     try {
-      const res = await axios.get("http://localhost:3000/admin/get-all-customers", {
+      const res = await axios.get(`${apiUrl}/admin/get-all-customers`, {
         headers: {
           Authorization: `Bearer ${token}`
         },

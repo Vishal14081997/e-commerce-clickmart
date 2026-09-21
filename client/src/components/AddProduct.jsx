@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { toast } from "react-hot-toast"
 import { useNavigate } from 'react-router-dom'
+import { apiUrl } from '../api/config'
 
 const AddProduct = () => {
     const [categories, setCategories] = useState([])
@@ -12,7 +13,7 @@ const AddProduct = () => {
     const token = localStorage.getItem("token")
     const fetchCategory = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/admin/get-all-category", {
+            const res = await axios.get(`${apiUrl}/get-all-category`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -51,7 +52,7 @@ const AddProduct = () => {
             data.append("price", formData.price)
             data.append("Qty", formData.Qty)
             data.append("product_image", imageUrl)
-            const res = await axios.post("http://localhost:3000/admin/create-product", data, {
+            const res = await axios.post(`${apiUrl}/admin/create-product`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

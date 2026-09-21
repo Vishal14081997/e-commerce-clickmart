@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import {toast} from "react-hot-toast"
 import { useNavigate } from 'react-router-dom'
+import { apiUrl } from '../api/config'
 
 const Login = () => {
 
@@ -18,7 +19,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/auth/login", formData)
+      const res = await axios.post(`${apiUrl}/auth/login`, formData)
       console.log(res.data);
       localStorage.setItem("token" ,res.data.data.token )
       toast.success(res.data.message)

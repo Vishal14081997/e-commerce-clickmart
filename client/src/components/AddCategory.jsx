@@ -32,7 +32,7 @@ const AddCategory = () => {
       data.append("CDesc", formData.CDesc)
       data.append("category_image", imageUrl )
 
-      const res = await axios.post("http://localhost:3000/admin/create-category", data,
+      const res = await axios.post(`${apiUrl}/admin/create-category`, data,
         {
           headers:{
             Authorization:`Bearer ${token}`,
