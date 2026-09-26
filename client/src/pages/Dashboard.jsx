@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Users, UserRound, Package, LayoutGrid } from 'lucide-react'
+import { apiUrl } from '../api/config'
 
 const Dashboard = () => {
 
@@ -13,7 +14,7 @@ const Dashboard = () => {
   })
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/admin/get-dashboard", {
+      const res = await axios.get(`${apiUrl}/admin/get-dashboard`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

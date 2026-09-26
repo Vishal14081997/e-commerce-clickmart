@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { apiUrl } from "../api/config";
 
 const EditCategory = () => {
   const { id } = useParams()
@@ -17,7 +18,7 @@ const EditCategory = () => {
 
   const fetchCategory = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/admin/get-category/${id}`, {
+      const res = await axios.get(`${apiUrl}/admin/get-category/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -51,7 +52,7 @@ const EditCategory = () => {
       data.append("CDesc", formData.CDesc)
       data.append("category_image", imageUrl)
 
-      const res = await axios.patch(`http://localhost:3000/admin/update-category/${id}`, data, {
+      const res = await axios.patch(`${apiUrl}/admin/update-category/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data"

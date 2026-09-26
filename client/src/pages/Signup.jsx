@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios"
 import {toast} from "react-hot-toast"
+import { apiUrl } from "../api/config";
 
 const Signup = () => {
 
@@ -24,7 +25,7 @@ const Signup = () => {
 
     const handleSignup = async () => {
         try {
-            const res = await axios.post("http://localhost:3000/auth/signup", formData)
+            const res = await axios.post(`${apiUrl}/auth/signup`, formData)
             console.log(res.data);
             toast.success("signup success")
             setFormData({

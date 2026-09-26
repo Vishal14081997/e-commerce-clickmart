@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { toast } from "react-hot-toast"
 import { useNavigate } from 'react-router-dom'
+import { apiUrl } from '../api/config'
 
 const CategoryCard = () => {
     const token = localStorage.getItem("token")
@@ -29,7 +30,7 @@ const CategoryCard = () => {
 
     const handleDelete = async (categoryId) => {
         try {
-            const res = await axios.delete(`http://localhost:3000/admin/delete-category/${categoryId}`, {
+            const res = await axios.delete(`${apiUrl}/admin/delete-category/${categoryId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

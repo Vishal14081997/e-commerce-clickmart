@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
 import axios from "axios";
+import { apiUrl } from "../api/config";
 
 const ProductCard = () => {
     const [data, setData] = useState([])
@@ -8,7 +9,7 @@ const ProductCard = () => {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/admin/get-all-products", {
+            const res = await axios.get(`${apiUrl}/admin/get-all-products`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
