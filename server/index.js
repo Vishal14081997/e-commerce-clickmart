@@ -3,9 +3,8 @@ import dotenv from "dotenv"
 import dbConnect from "./config/db.js"
 import authRouter from "./routes/auth.route.js"
 import adminRouter from "./routes/admin.route.js"
-
-
 import cors from "cors"
+
 dotenv.config();
 
 const app = express();
